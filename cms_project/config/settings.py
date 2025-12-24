@@ -38,8 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third-party apps
+    'rest_framework',
+
     # Local apps
     'apps.core.apps.CoreConfig',
+    'apps.content.apps.ContentConfig',
+    'apps.comments.apps.CommentsConfig',
+    'apps.seo.apps.SeoConfig',
+    'apps.themes.apps.ThemesConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -50,14 +59,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.core.middleware.ThemeMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
+        # مفيش theme ثابت هنا
         'DIRS': [],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +80,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # CMS context
+                'apps.core.context_processors.site_settings',
+                'apps.core.context_processors.menus',
             ],
         },
     },
